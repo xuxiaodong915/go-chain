@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(go mod *)",
+      "Bash(go build *)",
+      "Bash(./recipe-server.exe)",
+      "Bash(curl -s http://localhost:8080/api/categories)",
+      "Bash(go env *)",
+      "Bash(curl -s http://localhost:8080/api/recipes/daily)",
+      "Bash(python -m json.tool)",
+      "Bash(curl -s \"http://localhost:8080/api/recipes?page=1&size=3\")",
+      "Bash(curl -s http://localhost:8080/api/recipes/1)",
+      "Bash(curl -s -X POST http://localhost:8080/api/favorites -H \"Content-Type: application/json\" -d '{\"user_id\":\"test_user_1\",\"recipe_id\":1}')",
+      "Bash(curl -s \"http://localhost:8080/api/favorites?user_id=test_user_1\")",
+      "Bash(curl -s -X POST http://localhost:8080/api/shopping-list -H \"Content-Type: application/json\" -d '{\"user_id\":\"test_user_1\",\"item_name\":\"鸡蛋\",\"quantity\":\"1盒\"}')",
+      "Bash(curl -s \"http://localhost:8080/api/shopping-list?user_id=test_user_1\")"
+    ]
+  }
+}

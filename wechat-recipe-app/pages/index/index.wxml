@@ -1,0 +1,103 @@
+<!-- pages/index/index.wxml -->
+<view class="page">
+  <!-- Loading state -->
+  <view wx:if="{{loading}}" class="loading-container">
+    <view class="skeleton skeleton-card"></view>
+    <view class="skeleton skeleton-title"></view>
+    <view class="skeleton skeleton-tags"></view>
+  </view>
+
+  <!-- Error state -->
+  <view wx:elif="{{error}}" class="error-container">
+    <text class="error-icon">😅</text>
+    <text class="error-text">{{error}}</text>
+    <button class="retry-btn" bindtap="loadData">重新加载</button>
+  </view>
+
+  <!-- Content -->
+  <view wx:else class="content">
+    <!-- Header date -->
+    <view class="header">
+      <text class="date-text">{{todayText}}</text>
+      <text class="subtitle-text">今天吃点什么呢？</text>
+    </view>
+
+    <!-- Recipe card track -->
+    <view class="card-area">
+      <view
+        class="card-track"
+        style="transform: translateX({{trackOffset}}px); transition: {{_moving ? 'none' : 'all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)'}};"
+        capture-bind:touchstart="onTouchStart"
+        capture-bind:touchmove="onTouchMove"
+        capture-bind:touchend="onTouchEnd"
+      >
+        <view
+          class="card-slot"
+          wx:for="{{recipeList}}"
+          wx:key="id"
+        >
+          <view class="recipe-card card">
+            <image class="card-image" src="{{item.image_url}}" mode="aspectFill" wx:if="{{item.image_url}}"></image>
+            <view class="card-image card-image-fallback" wx:else>
+              <text class="image-emoji">{{item.emoji}}</text>
+            </view>
+            <view class="card-body">
+              <text class="recipe-name">{{item.name}}</text>
+              <view class="tags-row">
+                <text class="tag">{{item.category}}</text>
+                <text class="tag tag-green">{{item.cook_time}}</text>
+                <text class="tag tag-blue">{{item.difficulty}}</text>
+              </view>
+              <view class="ingredients-preview">
+                <text class="section-label">食材</text>
+                <text class="ingredients-text">{{item.ingredientsPreview}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- Indicator dots -->
+      <view class="indicator">
+        <view class="dot {{currentIndex === i ? 'active' : ''}}" wx:for="{{recipeList}}" wx:key="index"></view>
+      </view>
+    </view>
+
+    <!-- Action buttons -->
+    <view class="actions">
+      <view class="action-btn" bindtap="toggleFavorite">
+        <text class="action-icon {{isFavorited ? 'favorited' : ''}}">{{isFavorited ? '❤️' : '🤍'}}</text>
+        <text class="action-label">{{isFavorited ? '已收藏' : '收藏'}}</text>
+      </view>
+
+      <view class="action-btn primary" bindtap="addToShoppingList">
+        <text class="action-icon">🛒</text>
+        <text class="action-label">加入清单</text>
+      </view>
+
+      <view class="action-btn" bindtap="goToDetail">
+        <text class="action-icon">📖</text>
+        <text class="action-label">详情</text>
+      </view>
+    </view>
+
+    <!-- Backup list -->
+    <view class="backup-section" wx:if="{{backupList.length > 0}}">
+      <text class="section-title">更多推荐</text>
+      <scroll-view class="backup-scroll" scroll-x>
+        <view
+          class="backup-item"
+          wx:for="{{backupList}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="switchToRecipe"
+        >
+          <image class="backup-image" src="{{item.image_url}}" mode="aspectFill" wx:if="{{item.image_url}}"></image>
+          <view class="backup-image backup-image-fallback" wx:else>{{item.emoji}}</view>
+          <text class="backup-name">{{item.name}}</text>
+          <text class="backup-meta">{{item.cook_time}} · {{item.difficulty}}</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

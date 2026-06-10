@@ -1,0 +1,48 @@
+<!-- pages/shopping-list/shopping-list.wxml -->
+<view class="page">
+  <!-- Add item bar -->
+  <view class="add-bar card">
+    <input class="add-input" placeholder="输入食材名称" bindinput="onInputChange" value="{{inputValue}}" />
+    <input class="add-qty" placeholder="数量" bindinput="onQtyChange" value="{{inputQty}}" />
+    <button class="add-btn" bindtap="addItem" disabled="{{!inputValue.trim()}}">添加</button>
+  </view>
+
+  <!-- Shopping list -->
+  <view wx:if="{{items.length > 0}}" class="list">
+    <view class="list-header">
+      <text class="list-count">共 {{items.length}} 项</text>
+      <text class="clear-btn" wx:if="{{hasChecked}}" bindtap="clearChecked">清除已购</text>
+    </view>
+
+    <view
+      class="list-item card {{item.checked ? 'checked' : ''}}"
+      wx:for="{{items}}"
+      wx:key="id"
+    >
+      <view class="item-check" data-id="{{item.id}}" data-checked="{{item.checked}}" bindtap="toggleItem">
+        <text class="check-icon">{{item.checked ? '✅' : '⬜'}}</text>
+      </view>
+      <view class="item-content">
+        <text class="item-name {{item.checked ? 'done' : ''}}">{{item.item_name}}</text>
+        <text class="item-qty" wx:if="{{item.quantity}}">{{item.quantity}}</text>
+        <text class="item-source" wx:if="{{item.recipe_name}}">来自：{{item.recipe_name}}</text>
+      </view>
+      <view class="item-del" data-id="{{item.id}}" bindtap="deleteItem">
+        <text class="del-icon">🗑️</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Empty state -->
+  <view wx:else class="empty">
+    <text class="empty-icon">🛒</text>
+    <text class="empty-text">购物清单是空的</text>
+    <text class="empty-hint">在菜谱详情页可以一键添加食材</text>
+    <button class="go-btn" bindtap="goHome">去发现菜谱</button>
+  </view>
+
+  <!-- Loading -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+</view>

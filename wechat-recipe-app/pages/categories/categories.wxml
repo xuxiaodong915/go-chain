@@ -1,0 +1,48 @@
+<!-- pages/categories/categories.wxml -->
+<view class="page">
+  <!-- Category tabs -->
+  <scroll-view class="category-tabs" scroll-x scroll-with-animation>
+    <view
+      class="tab-item {{currentCategory === 0 ? 'active' : ''}}"
+      data-id="0"
+      bindtap="selectCategory"
+    >全部</view>
+    <view
+      class="tab-item {{currentCategory === item.id ? 'active' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="selectCategory"
+    >{{item.icon}} {{item.name}}</view>
+  </scroll-view>
+
+  <!-- Recipe grid -->
+  <view class="recipe-grid">
+    <view
+      class="recipe-item"
+      wx:for="{{recipes}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="goToDetail"
+    >
+      <image class="item-image" src="{{item.image_url}}" mode="aspectFill" wx:if="{{item.image_url}}"></image>
+      <view class="item-image item-image-fallback" wx:else>{{item.emoji}}</view>
+      <view class="item-info">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-meta">{{item.cook_time}} · {{item.difficulty}}</text>
+        <text class="item-category tag">{{item.category}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Empty state -->
+  <view wx:if="{{!loading && recipes.length === 0}}" class="empty">
+    <text class="empty-icon">🍽️</text>
+    <text class="empty-text">暂无菜谱</text>
+  </view>
+
+  <!-- Loading state -->
+  <view wx:if="{{loading && !recipes.length}}" class="loading-more">
+    <text>加载中...</text>
+  </view>
+</view>

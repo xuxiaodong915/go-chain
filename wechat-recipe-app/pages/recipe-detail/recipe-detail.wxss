@@ -1,0 +1,195 @@
+/* pages/recipe-detail/recipe-detail.wxss */
+.page {
+  min-height: 100vh;
+  background: #F5F5F5;
+  padding-bottom: 120rpx;
+}
+
+.loading-container {
+  padding: 0;
+}
+
+/* Header image */
+.header-image-wrap {
+  position: relative;
+}
+
+.header-image {
+  width: 100%;
+  height: 400rpx;
+  background: linear-gradient(135deg, #FFE0B2, #FFCC80);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-emoji {
+  font-size: 140rpx;
+}
+
+/* Replace image button */
+.replace-image-btn {
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 24rpx;
+  padding: 12rpx 24rpx;
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  backdrop-filter: blur(4px);
+}
+
+.replace-image-btn:active {
+  opacity: 0.7;
+}
+
+/* Basic info */
+.basic-info {
+  margin: -40rpx 20rpx 20rpx;
+  padding: 30rpx;
+  position: relative;
+  z-index: 10;
+}
+
+.recipe-name {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #333;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.tags {
+  display: flex;
+  gap: 12rpx;
+}
+
+/* Sections */
+.section {
+  margin: 0 20rpx 20rpx;
+  padding: 30rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.section-header .section-title {
+  margin-bottom: 0;
+}
+
+.add-list-btn {
+  font-size: 22rpx;
+  color: #FF6B35;
+  background: rgba(255, 107, 53, 0.1);
+  border: none;
+  border-radius: 30rpx;
+  padding: 8rpx 24rpx;
+  line-height: 1.8;
+}
+
+/* Ingredients */
+.ingredient-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.ingredient-item {
+  background: #F9F9F9;
+  border-radius: 12rpx;
+  padding: 12rpx 20rpx;
+}
+
+.ingredient-name {
+  font-size: 26rpx;
+  color: #555;
+}
+
+/* Steps */
+.step-list {
+  padding: 0;
+}
+
+.step-item {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 24rpx;
+  padding: 16rpx;
+  background: #FAFAFA;
+  border-radius: 16rpx;
+}
+
+.step-number {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  background: #FF6B35;
+  color: white;
+  font-size: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.8;
+}
+
+/* Bottom bar */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  display: flex;
+  padding: 16rpx 30rpx;
+  gap: 20rpx;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+}
+
+.bar-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  padding: 20rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  color: #666;
+  background: #F5F5F5;
+}
+
+.bar-btn.active {
+  color: #FF6B35;
+  background: rgba(255, 107, 53, 0.1);
+}
+
+.bar-btn.primary {
+  flex: 2;
+  color: white;
+  background: linear-gradient(135deg, #FF6B35, #FF8C5A);
+}

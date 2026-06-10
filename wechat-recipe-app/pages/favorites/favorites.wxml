@@ -1,0 +1,36 @@
+<!-- pages/favorites/favorites.wxml -->
+<view class="page">
+  <!-- Favorites list -->
+  <view wx:if="{{favorites.length > 0}}" class="fav-grid">
+    <view
+      class="fav-item"
+      wx:for="{{favorites}}"
+      wx:key="id"
+      data-id="{{item.recipe.id}}"
+      bindtap="goToDetail"
+    >
+      <image class="fav-image" src="{{item.recipe.image_url}}" mode="aspectFill" wx:if="{{item.recipe.image_url}}"></image>
+      <view class="fav-image fav-image-fallback" wx:else>{{item.recipe.emoji}}</view>
+      <view class="fav-info">
+        <text class="fav-name">{{item.recipe.name}}</text>
+        <text class="fav-meta">{{item.recipe.category}} · {{item.recipe.cook_time}}</text>
+      </view>
+      <view class="fav-actions">
+        <button class="del-btn" data-id="{{item.recipe.id}}" catchtap="removeFavorite">取消</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Empty state -->
+  <view wx:else class="empty">
+    <text class="empty-icon">💝</text>
+    <text class="empty-text">还没有收藏的菜谱</text>
+    <text class="empty-hint">去首页发现喜欢的菜谱吧</text>
+    <button class="go-btn" bindtap="goHome">去看看</button>
+  </view>
+
+  <!-- Loading -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+</view>

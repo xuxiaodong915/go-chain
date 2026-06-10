@@ -1,0 +1,68 @@
+<!-- pages/recipe-detail/recipe-detail.wxml -->
+<view class="page">
+  <view wx:if="{{loading}}" class="loading-container">
+    <view class="skeleton" style="height:400rpx;border-radius:0;margin-bottom:20rpx"></view>
+    <view class="skeleton" style="height:48rpx;width:60%;margin:20rpx"></view>
+    <view class="skeleton" style="height:32rpx;width:80%;margin:20rpx"></view>
+  </view>
+
+  <view wx:else class="content">
+    <!-- Header image -->
+    <view class="header-image-wrap">
+      <image class="header-image" src="{{recipe.image_url}}" mode="aspectFill" wx:if="{{recipe.image_url}}" binderror="onImageError"></image>
+      <view class="header-image header-image-fallback" wx:else>
+        <text class="header-emoji">{{recipe.emoji}}</text>
+      </view>
+      <!-- Replace image button -->
+      <view class="replace-image-btn" bindtap="replaceImage">
+        <text>📷 换图</text>
+      </view>
+    </view>
+
+    <!-- Basic info -->
+    <view class="basic-info card">
+      <text class="recipe-name">{{recipe.name}}</text>
+      <view class="tags">
+        <text class="tag">{{recipe.category}}</text>
+        <text class="tag tag-green">{{recipe.cook_time}}</text>
+        <text class="tag tag-blue">{{recipe.difficulty}}</text>
+      </view>
+    </view>
+
+    <!-- Ingredients -->
+    <view class="section card">
+      <view class="section-header">
+        <text class="section-title">🥬 食材清单</text>
+        <button class="add-list-btn" bindtap="addAllToList">加入购物清单</button>
+      </view>
+      <view class="ingredient-list">
+        <view class="ingredient-item" wx:for="{{recipe.ingredients}}" wx:key="index">
+          <text class="ingredient-name">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Steps -->
+    <view class="section card">
+      <text class="section-title">👩‍🍳 烹饪步骤</text>
+      <view class="step-list">
+        <view class="step-item" wx:for="{{recipe.steps}}" wx:key="index">
+          <view class="step-number">{{index + 1}}</view>
+          <text class="step-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Bottom action bar -->
+  <view class="bottom-bar" wx:if="{{!loading}}">
+    <view class="bar-btn {{isFavorited ? 'active' : ''}}" bindtap="toggleFavorite">
+      <text>{{isFavorited ? '❤️' : '🤍'}}</text>
+      <text>{{isFavorited ? '已收藏' : '收藏'}}</text>
+    </view>
+    <view class="bar-btn primary" bindtap="addAllToList">
+      <text>🛒</text>
+      <text>加入购物清单</text>
+    </view>
+  </view>
+</view>
